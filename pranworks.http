@@ -1,0 +1,6 @@
+@pranworks_HostAddress = http://localhost:5206
+
+GET {{pranworks_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
