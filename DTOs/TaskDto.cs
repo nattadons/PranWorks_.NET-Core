@@ -9,6 +9,7 @@ namespace TaskManagementAPI.DTOs
         public string? Description { get; set; }
         public string Status { get; set; } = "Todo";
         public string Deadline { get; set; } = string.Empty; // Format: YYYY-MM-DD
+        public List<string> Categories { get; set; } = new();
     }
 
     public class CreateTaskDto
@@ -25,6 +26,12 @@ namespace TaskManagementAPI.DTOs
 
         [Required]
         public string Deadline { get; set; } = string.Empty; // Format: YYYY-MM-DD
+
+        [Required]
+        public List<string> Categories { get; set; } = new();
+
+
+
     }
 
     public class UpdateTaskDto
@@ -41,5 +48,8 @@ namespace TaskManagementAPI.DTOs
 
         [Required]
         public string Deadline { get; set; } = string.Empty; // Format: YYYY-MM-DD
+
+        [Required]
+        public List<string> Categories { get; set; } = new();
     }
 }

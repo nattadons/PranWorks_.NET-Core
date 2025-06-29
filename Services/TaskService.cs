@@ -21,10 +21,42 @@ namespace TaskManagementAPI.Services
     {
         private static List<ModelTask> _tasks = new List<ModelTask>
            {
-               new ModelTask { Id = 1, Name = "Design UI for Dashboard", Status = "In Progress", Deadline = new DateTime(2025, 6, 30), Description = "Create wireframes and mockups for the main dashboard interface" },
-               new ModelTask { Id = 2, Name = "Write API Documentation", Status = "Todo", Deadline = new DateTime(2025, 7, 5), Description = "Document all REST API endpoints with examples and response formats" },
-               new ModelTask { Id = 3, Name = "Fix bugs in Task Detail page", Status = "Complete", Deadline = new DateTime(2025, 6, 20), Description = "Resolve issues with task editing and form validation" },
-               new ModelTask { Id = 4, Name = "Optimize database queries", Status = "In Progress", Deadline = new DateTime(2025, 7, 10), Description = "Improve performance of complex queries and add proper indexing" }
+               new ModelTask
+                {
+        Id = 1,
+        Name = "Design UI for Dashboard",
+        Status = "In Progress",
+        Deadline = new DateTime(2025, 6, 30),
+        Description = "Create wireframes and mockups for the main dashboard interface",
+        Categories = new List<string> { "Work", "Study" }
+    },
+    new ModelTask
+    {
+        Id = 2,
+        Name = "Write API Documentation",
+        Status = "Todo",
+        Deadline = new DateTime(2025, 7, 5),
+        Description = "Document all REST API endpoints with examples and response formats",
+        Categories = new List<string> { "Work", "Personal" }
+    },
+    new ModelTask
+    {
+        Id = 3,
+        Name = "Fix bugs in Task Detail page",
+        Status = "Complete",
+        Deadline = new DateTime(2025, 6, 20),
+        Description = "Resolve issues with task editing and form validation",
+        Categories = new List<string> { "Work" }
+    },
+    new ModelTask
+    {
+        Id = 4,
+        Name = "Optimize database queries",
+        Status = "In Progress",
+        Deadline = new DateTime(2025, 7, 10),
+        Description = "Improve performance of complex queries and add proper indexing",
+        Categories = new List<string> { "Work", "Health" }
+    }
            };
 
         private static int _nextId = 5;
@@ -37,7 +69,9 @@ namespace TaskManagementAPI.Services
                 Name = t.Name,
                 Description = t.Description,
                 Status = t.Status,
-                Deadline = t.Deadline.ToString("yyyy-MM-dd")
+                Deadline = t.Deadline.ToString("yyyy-MM-dd"),
+                Categories = t.Categories
+
             }).ToList();
 
             return await System.Threading.Tasks.Task.FromResult(taskDtos);
@@ -54,7 +88,9 @@ namespace TaskManagementAPI.Services
                 Name = task.Name,
                 Description = task.Description,
                 Status = task.Status,
-                Deadline = task.Deadline.ToString("yyyy-MM-dd")
+                Deadline = task.Deadline.ToString("yyyy-MM-dd"),
+                Categories = task.Categories
+
             };
 
             return await System.Threading.Tasks.Task.FromResult(taskDto);
@@ -69,8 +105,10 @@ namespace TaskManagementAPI.Services
                 Description = createTaskDto.Description,
                 Status = createTaskDto.Status,
                 Deadline = DateTime.Parse(createTaskDto.Deadline),
+                Categories = createTaskDto.Categories,
                 CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
+                UpdatedAt = DateTime.UtcNow,
+
             };
 
             _tasks.Add(task);
@@ -80,6 +118,7 @@ namespace TaskManagementAPI.Services
                 Id = task.Id,
                 Name = task.Name,
                 Description = task.Description,
+                Categories = task.Categories,
                 Status = task.Status,
                 Deadline = task.Deadline.ToString("yyyy-MM-dd")
             };
@@ -96,6 +135,7 @@ namespace TaskManagementAPI.Services
             task.Description = updateTaskDto.Description;
             task.Status = updateTaskDto.Status;
             task.Deadline = DateTime.Parse(updateTaskDto.Deadline);
+            task.Categories = updateTaskDto.Categories;
             task.UpdatedAt = DateTime.UtcNow;
 
             var taskDto = new TaskDto
@@ -104,6 +144,7 @@ namespace TaskManagementAPI.Services
                 Name = task.Name,
                 Description = task.Description,
                 Status = task.Status,
+                Categories = task.Categories,
                 Deadline = task.Deadline.ToString("yyyy-MM-dd")
             };
 
